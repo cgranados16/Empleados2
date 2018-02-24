@@ -18,7 +18,8 @@ namespace DatabaseRepository.Sql
 
         public async Task<IEnumerable<Empleado>> GetAsync()
         {
-            return await _db.Empleado.
+            return await _db.Empleado
+                .Include(employee => employee.Persona).
                 AsNoTracking().
                 ToListAsync();
         }
@@ -26,6 +27,7 @@ namespace DatabaseRepository.Sql
         public async Task<Empleado> GetAsync(int id)
         {
             return await _db.Empleado
+                .Include(employee => employee.Persona)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.IdEmpleado == id);
         }

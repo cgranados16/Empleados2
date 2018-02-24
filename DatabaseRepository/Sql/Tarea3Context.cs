@@ -19,6 +19,8 @@ namespace DatabaseRepository.Sql
         public DbSet<Persona> Persona { get; set; }
         public DbSet<Telefonos> Telefonos { get; set; }
 
+        //public DbSet<View_Empleado> View_Empleado { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Correos>(entity =>
@@ -50,7 +52,7 @@ namespace DatabaseRepository.Sql
 
                 entity.Property(e => e.Salario).HasColumnType("money");
 
-                entity.HasOne(d => d.IdEmpleadoNavigation)
+                entity.HasOne(d => d.Persona)
                     .WithOne(p => p.Empleado)
                     .HasForeignKey<Empleado>(d => d.IdEmpleado)
                     .OnDelete(DeleteBehavior.ClientSetNull)

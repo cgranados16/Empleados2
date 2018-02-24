@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EmpleadosModel
+namespace Empleados.Models
 {
     public partial class View_Empleado
     {

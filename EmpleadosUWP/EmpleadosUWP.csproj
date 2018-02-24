@@ -122,6 +122,7 @@
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\SampleDataService.cs" />
+    <Compile Include="ValuesConverter\DateTimeToDateTimeOffsetConverter.cs" />
     <Compile Include="ViewModels\BlindableBase.cs" />
     <Compile Include="ViewModels\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\EmployeesGridViewModel.cs" />
@@ -224,6 +225,7 @@
       <Name>EmpleadosModel</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

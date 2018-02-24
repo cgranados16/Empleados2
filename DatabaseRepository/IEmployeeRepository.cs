@@ -11,6 +11,10 @@ namespace DatabaseRepository
         /// </summary>
         Task<IEnumerable<Empleado>> GetAsync();
 
+        /// <summary>
+        /// Returns the employees with the given id. 
+        /// </summary>
+        //Task<IEnumerable<View_Empleado>> GetViewEmpleadoAsync();
 
         /// <summary>
         /// Returns the employees with the given id. 

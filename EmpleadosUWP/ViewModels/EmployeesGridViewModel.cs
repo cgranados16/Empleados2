@@ -22,14 +22,14 @@ namespace EmpleadosUWP.ViewModels
             set => SetProperty(ref _employees, value);
         }
 
-        private EmployeeViewModel _selectedCustomer;
+        private EmployeeViewModel _selectedEmployee;
         /// <summary>
         /// Gets or sets the selected customer, or null if no customer is selected. 
         /// </summary>
         public EmployeeViewModel SelectedEmployee
         {
-            get => _selectedCustomer;
-            set => SetProperty(ref _selectedCustomer, value);
+            get => _selectedEmployee;
+            set => SetProperty(ref _selectedEmployee, value);
         }
 
         private string _errorText = null;

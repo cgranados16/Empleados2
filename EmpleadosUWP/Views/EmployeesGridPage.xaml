@@ -78,18 +78,22 @@
         <Grid
             Grid.Row="1"
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-           <tg:RadDataGrid
-                x:Name="DataGrid"
-                BorderThickness="0"
+            <tg:RadDataGrid
                 ColumnDataOperationsMode="Flyout"
-                GridLinesVisibility="None"
-                GroupPanelPosition="Left"
-                ItemsSource="{x:Bind ViewModel.Employees}"
-                RelativePanel.AlignLeftWithPanel="True"
-                RelativePanel.AlignRightWithPanel="True"
-                RelativePanel.Below="errorPane"
-                SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
-                UserEditMode="Inline" />
+                x:Name="grid"
+                ItemsSource="{x:Bind Path=ViewModel.Employees}"
+                AutoGenerateColumns="False"
+                SelectedItem="{x:Bind Path=ViewModel.SelectedEmployee, Mode=TwoWay}" DoubleTapped="ViewDetails_Click">
+                <tg:RadDataGrid.Columns>
+                    <tg:DataGridTextColumn PropertyName="Cedula" Header="Cédula" SizeMode="Auto"/>
+                    <tg:DataGridTextColumn PropertyName="NombreCompleto" Header="Nombre" SizeMode="Auto"/>
+                    <tg:DataGridTextColumn PropertyName="PuestoTrabajo" Header="Puesto de Trabajo" SizeMode="Auto"/>
+                    <tg:DataGridTextColumn PropertyName="FechaContratacionString" Header="Fecha de Contratación" SizeMode="Auto"/>
+                    <tg:DataGridTextColumn PropertyName="GeneroString" Header="Género" SizeMode="Auto"/>
+                    <tg:DataGridTextColumn PropertyName="Nacionalidad" Header="Nacionalidad" SizeMode="Auto"/>
+                    <tg:DataGridTextColumn PropertyName="EstadoCivil" Header="Estado Civil" SizeMode="Auto"/>
+                </tg:RadDataGrid.Columns>
+            </tg:RadDataGrid>
         </Grid>
     </Grid>
 </Page>

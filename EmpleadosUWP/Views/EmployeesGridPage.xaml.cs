@@ -1,8 +1,10 @@
 ﻿using System;
-
+using System.Diagnostics;
+using Empleados.Models;
 using EmpleadosUWP.ViewModels;
 
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace EmpleadosUWP.Views
 {
@@ -17,11 +19,24 @@ namespace EmpleadosUWP.Views
         {
             InitializeComponent();
             
+
         }
 
         private void ViewDetails_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(EmployeeDetailsPage));
+            if (ViewModel.SelectedEmployee == null) return;
+            GoToDetailsPage(ViewModel.SelectedEmployee);
+        }
+
+        private void GoToDetailsPage(EmployeeViewModel employee) =>
+            Frame.Navigate(typeof(EmployeeDetailsPage), employee,
+                new DrillInNavigationTransitionInfo());
+
+
+        private void ViewDetails_Click(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        {
+            if (ViewModel.SelectedEmployee == null) return;
+            GoToDetailsPage(ViewModel.SelectedEmployee);
         }
     }
 }

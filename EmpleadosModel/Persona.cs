@@ -26,5 +26,6 @@ namespace Empleados.Models
         public ICollection<Correos> Correos { get; set; }
         public ICollection<Familiares> Familiares { get; set; }
         public ICollection<Telefonos> Telefonos { get; set; }
+       
     }
 }

@@ -9,44 +9,19 @@ namespace EmpleadosUWP.ViewModels
 {
     public class EmployeeDetailsViewModel : BindableBase
     {
+        /// <summary>
+        /// Creates a CustomerDetailPageViewModel that wraps the specified customer.
+        /// </summary>
         public EmployeeDetailsViewModel()
         {
-            Task.Run(GetCustomerListAsync);   
+            SaveCommand = new RelayCommand(async () => await Save());
+            CancelEditsCommand = new RelayCommand(OnCancelEdits);
+            StartEditCommand = new RelayCommand(OnStartEdit);
         }
 
-        private ObservableCollection<EmployeeViewModel> _employees = new ObservableCollection<EmployeeViewModel>();
+        private bool _isLoading;
         /// <summary>
-        /// The collection of customers in the list. 
-        /// </summary>
-        public ObservableCollection<EmployeeViewModel> Employees
-        {
-            get => _employees;
-            set => SetProperty(ref _employees, value);
-        }
-
-        private EmployeeViewModel _selectedCustomer;
-        /// <summary>
-        /// Gets or sets the selected customer, or null if no customer is selected. 
-        /// </summary>
-        public EmployeeViewModel SelectedEmployee
-        {
-            get => _selectedCustomer;
-            set => SetProperty(ref _selectedCustomer, value);
-        }
-
-        private string _errorText = null;
-        /// <summary>
-        /// Gets or sets the error text.
-        /// </summary>
-        public string ErrorText
-        {
-            get => _errorText;
-            set => SetProperty(ref _errorText, value);
-        }
-
-        private bool _isLoading = false;
-        /// <summary>
-        /// Gets or sets whether to show the data loading progress wheel. 
+        /// Indicates whether to show the loading icon. 
         /// </summary>
         public bool IsLoading
         {
@@ -54,43 +29,77 @@ namespace EmpleadosUWP.ViewModels
             set => SetProperty(ref _isLoading, value);
         }
 
-        public async Task GetCustomerListAsync()
+        private EmployeeViewModel _employee;
+        /// <summary>
+        /// Gets and sets the current customer values.
+        /// </summary>
+        public EmployeeViewModel Employee
         {
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() => IsLoading = true);
+            get => _employee;
 
-            var customers = await App.Repository.Employees.GetAsync();
-            if (customers == null)
+            set
             {
-                return;
-            }
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
-            {
-                Employees.Clear();
-                foreach (var c in customers)
+                if (SetProperty(ref _employee, value) == true)
                 {
-                    Employees.Add(new EmployeeViewModel(c) { Validate = true });
+                    if (string.IsNullOrWhiteSpace(Employee.Nombre))
+                    {
+                        IsInEdit = true;
+                    }
                 }
-                IsLoading = false;
-            });
+            }
         }
 
         /// <summary>
-        /// Queries the database for a current list of customers.
+        /// Get's the customers full (first + last) name.
         /// </summary>
-        private void OnSync()
+        public string Name => Employee?.Nombre;
+
+        private bool _isInEdit = false;
+        /// <summary>
+        /// Gets and sets the current edit mode.
+        /// </summary>
+        public bool IsInEdit
         {
-            Task.Run(async () =>
-            {
-                IsLoading = true;
-                foreach (var modifiedEmployee in Employees
-                    .Where(x => x.IsModified).Select(x => x.Model))
-                {
-                    await App.Repository.Employees.UpsertAsync(modifiedEmployee);
-                }
-                await GetCustomerListAsync();
-                IsLoading = false;
-            });
+            get => _isInEdit;
+            set => SetProperty(ref _isInEdit, value);
         }
+
+        private string _errorText = null;
+        /// <summary>
+        /// Gets and sets the relevant error text.
+        /// </summary>
+        public string ErrorText
+        {
+            get => _errorText;
+            set => SetProperty(ref _errorText, value);
+        }
+
+        public RelayCommand SaveCommand { get; private set; }
+
+        /// <summary>
+        /// Saves customer data that has been edited.
+        /// </summary>
+        private async Task Save() => await App.Repository.Employees.UpsertAsync(_employee.Model);
+
+        public RelayCommand CancelEditsCommand { get; private set; }
+
+        /// <summary>
+        /// Cancels any in progress edits.
+        /// </summary>
+        private void OnCancelEdits()
+        {
+            RefreshCommand.Execute(null);
+            IsInEdit = false;
+        }
+
+        public RelayCommand StartEditCommand { get; private set; }
+
+        /// <summary>
+        /// Enables edit mode.
+        /// </summary>
+        private void OnStartEdit() => IsInEdit = true;
+
+        public RelayCommand RefreshCommand { get; private set; }
 
     }
 }
