@@ -15,6 +15,9 @@
     <Page.Resources>
         <Converters:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter"/>
         <Converters:StringFormatterConverter x:Key="StringFormatterConverter"/>
+        <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <Converters:BooleanInverterConverter x:Key="BooleanInverterConverter"/>
+        
     </Page.Resources>
 
 
@@ -55,7 +58,9 @@
                 <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                     <RelativePanel  DataContext="{x:Bind ViewModel.Employee, Mode=OneWay}">
                         <StackPanel x:Name="Employee" Margin="20">
-                            <my:RadNumericBox x:Name="CedulaNumericBox" IsEnabled="False" Header="Numero de Identificación" Value="{Binding Cedula,Mode=TwoWay}"  Margin="0,24,0,0" Width="300" HorizontalAlignment="Left" InputScope="Number" ValueFormat="{}{0,0}" Maximum="99999999999" AllowNullValue="False" ButtonsVisibility="Collapsed" />
+                            <my:RadNumericBox x:Name="CedulaNumericBox"
+                                              IsEnabled="{x:Bind ViewModel.IsNewEmployee, Mode=OneWay}"
+                                              Header="Numero de Identificación" Value="{Binding Cedula,Mode=TwoWay}"  Margin="0,24,0,0" Width="300" HorizontalAlignment="Left" InputScope="Number" ValueFormat="{}{0,0}" Maximum="99999999999" AllowNullValue="False" ButtonsVisibility="Collapsed" />
                             <TextBox x:Name="FirstName" Header= "Primer Nombre" Text="{x:Bind ViewModel.Employee.Nombre, Mode=TwoWay}" Margin="0,24,0,0" MaxLength="320" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"/>
                             <TextBox x:Name="LastName" Header= "Primer Apellido" Text="{x:Bind ViewModel.Employee.Apellido1, Mode=TwoWay}" Margin="0,24,0,0" MaxLength="320" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"/>
                             <TextBox x:Name="SecondLastName" Header= "Segundo Apellido" Text="{x:Bind ViewModel.Employee.Apellido2, Mode=TwoWay}" Margin="0,24,0,0" MaxLength="320" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"/>
@@ -73,7 +78,9 @@
                 </Grid>
             </PivotItem>
 
-            <PivotItem x:Uid="EmployeeDetails_PivotItem2">
+            <PivotItem
+                x:Uid="EmployeeDetails_PivotItem2"
+                Visibility="{x:Bind ViewModel.IsNewEmployee, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay, ConverterParameter=true}">
                 <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                     <tg:RadDataGrid
                 ColumnDataOperationsMode="Flyout"
@@ -89,8 +96,8 @@
             </PivotItem>
             <Pivot.RightHeader>
                 <CommandBar OverflowButtonVisibility="Collapsed" Background="Transparent">
-                    <AppBarButton Icon="Delete"/>
-                    <AppBarSeparator/>
+                    <AppBarButton Icon="Delete" Visibility="{x:Bind ViewModel.IsNewEmployee, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay, ConverterParameter=true}" />
+                    <AppBarSeparator Visibility="{x:Bind ViewModel.IsNewEmployee, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay, ConverterParameter=true}"/>
                     <AppBarButton Icon="Save" Click="SaveButton_Click"/>
                 </CommandBar>
             </Pivot.RightHeader>

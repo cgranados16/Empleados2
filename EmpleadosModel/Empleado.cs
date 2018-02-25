@@ -14,16 +14,16 @@ namespace Empleados.Models
             PagosRealizados = new HashSet<PagosRealizados>();
             Permisos = new HashSet<Permisos>();
             Persona = new Persona();
+            FechaContratacion = new DateTime();
+            FechaContratacion = DateTime.Today;
+            Salario = 0;
         }
 
-        [Display(Name = "Number", GroupName = "Job Description")]
         public int IdEmpleado { get; set; }
-        
         public string PuestoTrabajo { get; set; }
         public DateTime? FechaContratacion { get; set; }
         public decimal? Salario { get; set; }
 
-        //public Persona IdEmpleadoNavigation { get; set; }
         public virtual Persona Persona { get; set; }
         public ICollection<Familiares> Familiares { get; set; }
         public ICollection<HistorialVacaciones> HistorialVacaciones { get; set; }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Empleados.Models;
 using EmpleadosUWP.Helpers;
 using Microsoft.Toolkit.Uwp.Helpers;
+using Windows.UI.Xaml.Controls;
 
 namespace EmpleadosUWP.ViewModels
 {
@@ -40,6 +41,41 @@ namespace EmpleadosUWP.ViewModels
             set => SetProperty(ref _isLoading, value);
         }
 
+        private bool _isNewEmployee;
+        /// <summary>
+        /// Indicates whether this is a new customer.
+        /// </summary>
+        public bool IsNewEmployee
+        {
+            get => _isNewEmployee;
+            set => SetProperty(ref _isNewEmployee, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the user has changed the order. 
+        /// </summary>
+        bool _hasChanges = false;
+        public bool HasChanges
+        {
+            get => _hasChanges;
+            set
+            {
+                if (value != _hasChanges)
+                {
+                    // Only record changes after the order has loaded. 
+                    if (IsLoaded)
+                    {
+                        _hasChanges = value;
+                        OnPropertyChanged(nameof(HasChanges));
+                    }
+                }
+            }
+        }
+
+        public bool IsLoaded => _employee != null && (IsNewEmployee || _employee.Persona != null);
+
+        public bool IsNotLoaded => !IsLoaded;
+
         private EmployeeViewModel _employee;
         /// <summary>
         /// Gets and sets the current customer values.
@@ -51,11 +87,12 @@ namespace EmpleadosUWP.ViewModels
             set
             {
                 SetProperty(ref _employee, value);
+                HasChanges = true;
             }
         }
 
-       
-       
+
+
         private string _errorText = null;
         /// <summary>
         /// Gets and sets the relevant error text.
@@ -98,26 +135,40 @@ namespace EmpleadosUWP.ViewModels
             }
             catch (Exception ex)
             {
-                throw new EmployeeSavingException("Unable to save. There might have been a problem " +
-                    "connecting to the database. Please try again.", ex);
+                throw new EmployeeSavingException("No se pudo guardar. Hubo un problema" +
+                    "con la conexión. Intente de nuevo.", ex);
             }
+            ShowSaveDialogMessage(result != null);
 
-            if (result != null)
+        }
+
+        public async void ShowSaveDialogMessage(bool success)
+        {
+
+            if (success)
             {
-                Debug.Print("Yea");
+                
+                var dialog = new ContentDialog()
+                {
+                    Title = "Guardado",
+                    Content = $"Los datos se han guardado con éxito.",
+                    PrimaryButtonText = "OK"
+                };
+
+                await dialog.ShowAsync();
             }
             else
             {
                 await DispatcherHelper.ExecuteOnUIThreadAsync(() => new EmployeeSavingException(
-                    "Unable to save. There might have been a problem " +
-                    "connecting to the database. Please try again."));
+                    "No se pudo guardar. Hubo un problema" +
+                    "con la conexión. Intente de nuevo."));
             }
         }
 
         public class EmployeeSavingException : Exception
         {
 
-            public EmployeeSavingException() : base("Error saving an order.")
+            public EmployeeSavingException() : base("Error guardando el empleado.")
             {
             }
 

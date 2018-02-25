@@ -118,30 +118,34 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Helpers\Observable.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
-    <Compile Include="Models\GeneroEnum.cs" />
-    <Compile Include="Models\SampleOrder.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Services\SampleDataService.cs" />
+    <Compile Include="ValuesConverter\BooleanInverterConverter.cs" />
+    <Compile Include="ValuesConverter\BooleanToVisibilityConverter.cs" />
     <Compile Include="ValuesConverter\DateTimeToDateTimeOffsetConverter.cs" />
     <Compile Include="ValuesConverter\DateToStringConverter.cs" />
+    <Compile Include="ValuesConverter\GenericConverter.cs" />
+    <Compile Include="ValuesConverter\NullToBooleanConverter.cs" />
+    <Compile Include="ValuesConverter\NullToVisibilityConverter.cs" />
     <Compile Include="ValuesConverter\StringFormatterConverter.cs" />
     <Compile Include="ViewModels\BlindableBase.cs" />
     <Compile Include="ViewModels\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\EmployeesGridViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
-    <Compile Include="ViewModels\PagosViewModel.cs" />
-    <Compile Include="ViewModels\ShellNavigationItem.cs" />
-    <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Navigation\ShellNavigationItem.cs" />
+    <Compile Include="Navigation\ShellViewModel.cs" />
     <Compile Include="Views\EmployeeDetailsPage.xaml.cs">
       <DependentUpon>EmployeeDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EmployeesGridPage.xaml.cs">
       <DependentUpon>EmployeesGridPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ShellPage.xaml.cs">
+    <Compile Include="ShellPage.xaml.cs">
       <DependentUpon>ShellPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SaveChangesDialog.xaml.cs">
+      <DependentUpon>SaveChangesDialog.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -183,7 +187,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ShellPage.xaml">
+    <Page Include="ShellPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SaveChangesDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

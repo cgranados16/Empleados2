@@ -23,8 +23,6 @@ namespace EmpleadosUWP.ViewModels
         {
             Model = model ?? new Empleado();
             Generos = new ObservableCollection<string>() { "Hombre", "Mujer", };
-
-
         }
 
         /// <summary>
@@ -117,11 +115,7 @@ namespace EmpleadosUWP.ViewModels
 
         public DateTime? FechaContratacion
         {
-            get
-            {
-                if (Model.FechaContratacion== null) return new DateTime();
-                return Model.FechaContratacion;
-            }
+            get => Model.FechaContratacion;
             set
             {
                 if (value != Model.FechaContratacion)
@@ -179,11 +173,7 @@ namespace EmpleadosUWP.ViewModels
 
         public DateTime? FechaNacimiento
         {
-            get
-            {
-                if (Persona.FechaNacimiento == null) return new DateTime();
-                return Persona.FechaNacimiento;
-            }
+            get => Persona.FechaNacimiento;
             set
             {
                 if (value != Persona.FechaNacimiento)
@@ -196,11 +186,7 @@ namespace EmpleadosUWP.ViewModels
 
         public float Salario
         {
-            get
-            {
-                if (Model.Salario == null) return 0;
-                return (float)Model.Salario;
-            }
+            get => (float)Model.Salario;
             set
             {
                 if (value != Convert.ToDouble(Model.Salario))
@@ -212,7 +198,7 @@ namespace EmpleadosUWP.ViewModels
             }
         }
 
-        
+
         public string NombreCompleto => Model.Persona.Nombre + " " + Model.Persona.Apellido1 + " " + Model.Persona.Apellido2;
         public string FechaContratacionString => Model.FechaContratacion.Value.ToShortDateString();
     }

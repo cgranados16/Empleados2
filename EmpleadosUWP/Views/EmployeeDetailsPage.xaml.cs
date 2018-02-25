@@ -44,21 +44,26 @@ namespace EmpleadosUWP.Views
             }
         }
 
+        void LoadEmployee(EmployeeViewModel employee)
+        {
+            if (employee != null) {
+                ViewModel = new EmployeeDetailsViewModel(employee);
+                Bindings.Update();
+                
+            }
+            else{
+                ViewModel = new EmployeeDetailsViewModel(new EmployeeViewModel(new Empleado()));
+                ViewModel.IsNewEmployee = true;
+                Bindings.Update();
+            }
+        }
+
 
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // Determine whether a valid order was provided.
             var employee = e.Parameter as EmployeeViewModel;
-            if (employee != null)
-            {
-                ViewModel = new EmployeeDetailsViewModel(employee);
-            }
-            else
-            {
-                ViewModel = new EmployeeDetailsViewModel(new EmployeeViewModel(new Empleado()));
-                CedulaNumericBox.IsEnabled = true;
-            }
+            LoadEmployee(employee);
             base.OnNavigatedTo(e);
         }
 
@@ -67,7 +72,6 @@ namespace EmpleadosUWP.Views
         /// </summary>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-
             base.OnNavigatingFrom(e);
         }
 
@@ -75,14 +79,32 @@ namespace EmpleadosUWP.Views
         {
             try
             {
-                await ViewModel.SaveEmployee();
+                var saveDialog = new SaveChangesDialog()
+                {
+                    Title = $"¿Guardar cambios a {ViewModel.Employee.Nombre.ToString()}?",
+                    Message = $"¿Realmente desea guardar los cambios realizados a este empleado?"                       
+                };
+                await saveDialog.ShowAsync();
+                SaveChangesDialogResult result = saveDialog.Result;
+
+                switch (result)
+                {
+                    case SaveChangesDialogResult.Save:
+                        await ViewModel.SaveEmployee();
+                        break;
+                    case SaveChangesDialogResult.DontSave:
+                        break;
+                    case SaveChangesDialogResult.Cancel:
+                        ViewModel.HasChanges = true;
+                        break;
+                }
             }
             catch (EmployeeSavingException ex)
             {
                 var dialog = new ContentDialog()
                 {
-                    Title = "Unable to save",
-                    Content = $"There was an error saving your order:\n{ex.Message}",
+                    Title = "No se pudo guardar.",
+                    Content = $"Ocurrió un error al guardar su orden:\n{ex.Message}",
                     PrimaryButtonText = "OK"
                 };
 
@@ -101,9 +123,6 @@ namespace EmpleadosUWP.Views
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
-     
+        }    
     }
 }

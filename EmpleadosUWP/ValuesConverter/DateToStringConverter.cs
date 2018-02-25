@@ -41,8 +41,8 @@ namespace EmpleadosUWP.ValuesConverter
             }
             else
             {
-                return DateTimeOffset.Now;
-                //throw new ArgumentException($"Unsuported type: {targetType.FullName}");
+                //return DateTimeOffset.Now;
+                throw new ArgumentException($"Unsuported type: {targetType.FullName}");
             }
 
         }

@@ -10,6 +10,8 @@ namespace Empleados.Models
             Correos = new HashSet<Correos>();
             Familiares = new HashSet<Familiares>();
             Telefonos = new HashSet<Telefonos>();
+            FechaNacimiento = new DateTime();
+            FechaNacimiento = DateTime.Today;
         }
 
         public int IdPersona { get; set; }

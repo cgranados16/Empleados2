@@ -134,7 +134,7 @@ namespace EmpleadosUWP.ViewModels
                     DisplayMode = SplitViewDisplayMode.CompactInline;
                     break;
                 case WideStateName:
-                    DisplayMode = SplitViewDisplayMode.CompactInline;
+                    DisplayMode = SplitViewDisplayMode.Inline;
                     IsPaneOpen = false;
                     break;
                 case NarrowStateName:
