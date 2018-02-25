@@ -114,19 +114,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
+    <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Helpers\Observable.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
-    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\GeneroEnum.cs" />
     <Compile Include="Models\SampleOrder.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\SampleDataService.cs" />
     <Compile Include="ValuesConverter\DateTimeToDateTimeOffsetConverter.cs" />
+    <Compile Include="ValuesConverter\DateToStringConverter.cs" />
+    <Compile Include="ValuesConverter\StringFormatterConverter.cs" />
     <Compile Include="ViewModels\BlindableBase.cs" />
     <Compile Include="ViewModels\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\EmployeesGridViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
+    <Compile Include="ViewModels\PagosViewModel.cs" />
     <Compile Include="ViewModels\ShellNavigationItem.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\EmployeeDetailsPage.xaml.cs">

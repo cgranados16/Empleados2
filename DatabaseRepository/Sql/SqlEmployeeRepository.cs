@@ -18,8 +18,8 @@ namespace DatabaseRepository.Sql
 
         public async Task<IEnumerable<Empleado>> GetAsync()
         {
-            return await _db.Empleado
-                .Include(employee => employee.Persona).
+            return await _db.Empleado.
+                Include(employee => employee.Persona).
                 AsNoTracking().
                 ToListAsync();
         }
@@ -27,7 +27,6 @@ namespace DatabaseRepository.Sql
         public async Task<Empleado> GetAsync(int id)
         {
             return await _db.Empleado
-                .Include(employee => employee.Persona)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.IdEmpleado == id);
         }
@@ -37,9 +36,22 @@ namespace DatabaseRepository.Sql
             throw new NotImplementedException();
         }
 
-        public Task<Empleado> UpsertAsync(Empleado customer)
+        public async Task<Empleado> UpsertAsync(Empleado customer)
         {
-            throw new NotImplementedException();
+            var current = await _db.Empleado.FirstOrDefaultAsync(x => x.IdEmpleado == customer.IdEmpleado);
+            if (null == current)
+            {
+                _db.Persona.Add(customer.Persona);
+                _db.Empleado.Add(customer);
+            }
+            else
+            {
+                var current_persona = await _db.Persona.FirstOrDefaultAsync(x => x.IdPersona == customer.Persona.IdPersona);
+                _db.Entry(current_persona).CurrentValues.SetValues(customer.Persona);
+                _db.Entry(current).CurrentValues.SetValues(customer);
+            }
+            await _db.SaveChangesAsync();
+            return customer;
         }
     }
 }

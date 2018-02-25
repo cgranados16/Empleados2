@@ -18,5 +18,11 @@ namespace DatabaseRepository.Sql
 
         public IEmployeeRepository Employees => new SqlEmployeeRepository(
             new Tarea3Context(_dbOptions));
+
+        public IPeopleRepository People => new SqlPeopleRepository(
+            new Tarea3Context(_dbOptions));
+
+        public IPaymentsRepository Payments => new SqlPaymentsRepository(
+            new Tarea3Context(_dbOptions));
     }
 }
