@@ -94,6 +94,12 @@
                     </tg:RadDataGrid>
                 </Grid>
             </PivotItem>
+            <PivotItem x:Uid="EmployeeDetails_PivotItem3">
+                
+            </PivotItem>
+            <PivotItem x:Uid="EmployeeDetails_PivotItem4">
+
+            </PivotItem>
             <Pivot.RightHeader>
                 <CommandBar OverflowButtonVisibility="Collapsed" Background="Transparent">
                     <AppBarButton Icon="Delete" Visibility="{x:Bind ViewModel.IsNewEmployee, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay, ConverterParameter=true}" />

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Empleados.Models;
 using EmpleadosUWP.Helpers;
 using Microsoft.Toolkit.Uwp.Helpers;
+using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Controls;
 
 namespace EmpleadosUWP.ViewModels
@@ -147,11 +148,10 @@ namespace EmpleadosUWP.ViewModels
 
             if (success)
             {
-                
                 var dialog = new ContentDialog()
                 {
-                    Title = "Guardado",
-                    Content = $"Los datos se han guardado con éxito.",
+                    Title = App.resourceLoader.GetString("SuccessSaveDialogTitle"),
+                    Content = App.resourceLoader.GetString("SuccessSaveDialogContent"),
                     PrimaryButtonText = "OK"
                 };
 

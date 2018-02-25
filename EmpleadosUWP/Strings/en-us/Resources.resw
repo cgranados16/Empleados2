@@ -145,4 +145,16 @@
     <value>Pagos</value>
     <comment>Second Pivot item title for EmployeeDetails</comment>
   </data>
+  <data name="SuccessSaveDialogContent" xml:space="preserve">
+    <value>Los datos se han guardado con éxito.</value>
+  </data>
+  <data name="SuccessSaveDialogTitle" xml:space="preserve">
+    <value>Guardado</value>
+  </data>
+  <data name="EmployeeDetails_PivotItem3.Header" xml:space="preserve">
+    <value>Familiares</value>
+  </data>
+  <data name="EmployeeDetails_PivotItem4.Header" xml:space="preserve">
+    <value>Vacaciones</value>
+  </data>
 </root>

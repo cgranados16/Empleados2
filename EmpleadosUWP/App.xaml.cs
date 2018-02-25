@@ -5,6 +5,7 @@ using DatabaseRepository.Sql;
 using EmpleadosUWP.Services;
 using Microsoft.EntityFrameworkCore;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
 
 namespace EmpleadosUWP
@@ -15,6 +16,7 @@ namespace EmpleadosUWP
         /// Pipeline for interacting with backend service or database.
         /// </summary>
         public static IEmpleadosRepository Repository { get; private set; }
+        public static ResourceLoader resourceLoader = new ResourceLoader();
 
         private Lazy<ActivationService> _activationService;
 

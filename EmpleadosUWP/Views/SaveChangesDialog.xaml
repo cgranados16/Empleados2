@@ -50,15 +50,15 @@
             <Button
                 Grid.Column="0"
                 Click="yesButton_Click"
-                Content="Save" />
+                Content="Guardar" />
             <Button
                 Grid.Column="1"
                 Click="noButton_Click"
-                Content="Don't save" />
+                Content="No guardar" />
             <Button
                 Grid.Column="2"
                 Click="cancelButton_Click"
-                Content="Cancel" />
+                Content="Cancelar" />
         </Grid>
     </StackPanel>
 

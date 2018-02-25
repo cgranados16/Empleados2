@@ -81,7 +81,7 @@ namespace EmpleadosUWP.Views
             {
                 var saveDialog = new SaveChangesDialog()
                 {
-                    Title = $"¿Guardar cambios a {ViewModel.Employee.Nombre.ToString()}?",
+                    Title = $"¿Guardar cambios a {ViewModel.Employee.Nombre}?",
                     Message = $"¿Realmente desea guardar los cambios realizados a este empleado?"                       
                 };
                 await saveDialog.ShowAsync();
