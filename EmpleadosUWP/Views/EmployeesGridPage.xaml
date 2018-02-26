@@ -78,7 +78,7 @@
         </Grid>
         <Grid
             Grid.Row="1"
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="0,24,0,0">
             <tg:RadDataGrid
                 ColumnDataOperationsMode="Flyout"
                 x:Name="grid"
@@ -86,13 +86,13 @@
                 AutoGenerateColumns="False"
                 SelectedItem="{x:Bind Path=ViewModel.SelectedEmployeeAsObject, Mode=TwoWay}" DoubleTapped="ViewDetails_Click">
                 <tg:RadDataGrid.Columns>
-                    <tg:DataGridTextColumn PropertyName="Cedula" Header="Cédula" SizeMode="Auto"/>
-                    <tg:DataGridTextColumn PropertyName="NombreCompleto" Header="Nombre" SizeMode="Auto"/>
-                    <tg:DataGridTextColumn PropertyName="PuestoTrabajo" Header="Puesto de Trabajo" SizeMode="Auto"/>
-                    <tg:DataGridTextColumn PropertyName="FechaContratacionString" Header="Fecha de Contratación" SizeMode="Auto"/>
-                    <tg:DataGridTextColumn PropertyName="Genero" Header="Género" SizeMode="Auto"/>
-                    <tg:DataGridTextColumn PropertyName="Nacionalidad" Header="Nacionalidad" SizeMode="Auto"/>
-                    <tg:DataGridTextColumn PropertyName="EstadoCivil" Header="Estado Civil" SizeMode="Auto"/>
+                    <tg:DataGridTextColumn PropertyName="Cedula" Header="Cédula"/>
+                    <tg:DataGridTextColumn PropertyName="NombreCompleto" Header="Nombre"/>
+                    <tg:DataGridTextColumn PropertyName="PuestoTrabajo" Header="Puesto de Trabajo" />
+                    <tg:DataGridTextColumn PropertyName="FechaContratacionString" Header="Fecha de Contratación"/>
+                    <tg:DataGridTextColumn PropertyName="Genero" Header="Género" />
+                    <tg:DataGridTextColumn PropertyName="Nacionalidad" Header="Nacionalidad"/>
+                    <tg:DataGridTextColumn PropertyName="EstadoCivil" Header="Estado Civil"/>
                 </tg:RadDataGrid.Columns>
             </tg:RadDataGrid>
         </Grid>

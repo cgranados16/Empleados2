@@ -61,19 +61,15 @@ namespace DatabaseRepository.Sql
 
             modelBuilder.Entity<Familiares>(entity =>
             {
-                entity.HasKey(e => new { e.IdEmpleado, e.IdFamiliar, e.Relacion });
+                entity.HasKey(e => new { e.IdEmpleado, e.IdFamiliar});
 
-                entity.Property(e => e.Relacion)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.IdEmpleadoNavigation)
+                entity.HasOne(d => d.Empleado)
                     .WithMany(p => p.Familiares)
                     .HasForeignKey(d => d.IdEmpleado)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Familiare__IdEmp__74AE54BC");
 
-                entity.HasOne(d => d.IdFamiliarNavigation)
+                entity.HasOne(d => d.Familiar)
                     .WithMany(p => p.Familiares)
                     .HasForeignKey(d => d.IdFamiliar)
                     .OnDelete(DeleteBehavior.ClientSetNull)

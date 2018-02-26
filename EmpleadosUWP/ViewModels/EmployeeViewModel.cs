@@ -198,7 +198,6 @@ namespace EmpleadosUWP.ViewModels
             }
         }
 
-
         public string NombreCompleto => Model.Persona.Nombre + " " + Model.Persona.Apellido1 + " " + Model.Persona.Apellido2;
         public string FechaContratacionString => Model.FechaContratacion.Value.ToShortDateString();
     }

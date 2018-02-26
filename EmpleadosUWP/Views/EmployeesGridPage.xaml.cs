@@ -4,7 +4,7 @@ using Empleados.Models;
 using EmpleadosUWP.ViewModels;
 
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 
 namespace EmpleadosUWP.Views
 {
@@ -17,6 +17,7 @@ namespace EmpleadosUWP.Views
         // You may also want to extend the grid to work with the RadDataForm http://docs.telerik.com/windows-universal/controls/raddataform/dataform-gettingstarted
         public EmployeesGridPage()
         {
+            
             InitializeComponent();
 
         }

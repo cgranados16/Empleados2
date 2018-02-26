@@ -56,6 +56,7 @@ namespace EmpleadosUWP.Views
                 ViewModel.IsNewEmployee = true;
                 Bindings.Update();
             }
+            App.SelectedEmployee = ViewModel.Employee.Model;
         }
 
 
@@ -72,6 +73,7 @@ namespace EmpleadosUWP.Views
         /// </summary>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
+            App.SelectedEmployee = null;
             base.OnNavigatingFrom(e);
         }
 

@@ -125,14 +125,6 @@
     <value>Lista de Empleados</value>
     <comment>Navigation view item name for EmployeesGrid</comment>
   </data>
-  <data name="MasterDetail_Title.Text" xml:space="preserve">
-    <value>Detalle de Empleados</value>
-    <comment>Page title for MasterDetail</comment>
-  </data>
-  <data name="MasterDetail_NoSelection.Text" xml:space="preserve">
-    <value>Select an item from the list.</value>
-    <comment>No selection text for MasterDetail</comment>
-  </data>
   <data name="EmployeeDetails_Pivot.Text" xml:space="preserve">
     <value>Detalles de Empleado</value>
     <comment>Page title for EmployeeDetails</comment>
@@ -156,5 +148,30 @@
   </data>
   <data name="EmployeeDetails_PivotItem4.Header" xml:space="preserve">
     <value>Vacaciones</value>
+  </data>
+
+  <data name="FamiliaresPage_Title.Text" xml:space="preserve">
+    <value>FamiliaresPage</value>
+    <comment>Page title for FamiliaresPage</comment>
+  </data>
+  <data name="FamiliaresPage_NoSelection.Text" xml:space="preserve">
+    <value>Select an item from the list.</value>
+    <comment>No selection text for FamiliaresPage</comment>
+  </data>
+  <data name="Shell_FamiliaresPage" xml:space="preserve">
+    <value>FamiliaresPage</value>
+    <comment>Navigation view item name for FamiliaresPage</comment>
+  </data>
+  <data name="Familiares_Title.Text" xml:space="preserve">
+    <value>Familiares</value>
+    <comment>Page title for Familiares</comment>
+  </data>
+  <data name="Familiares_NoSelection.Text" xml:space="preserve">
+    <value>Select an item from the list.</value>
+    <comment>No selection text for Familiares</comment>
+  </data>
+  <data name="Shell_Familiares" xml:space="preserve">
+    <value>Familiares</value>
+    <comment>Navigation view item name for Familiares</comment>
   </data>
 </root>

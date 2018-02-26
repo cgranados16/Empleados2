@@ -9,6 +9,7 @@ namespace DatabaseRepository
         IEmployeeRepository Employees { get; }
         IPeopleRepository People { get; }
         IPaymentsRepository Payments { get; }
+        IFamilyRepository Family { get; }
 
     }
 }

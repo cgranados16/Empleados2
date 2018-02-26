@@ -24,5 +24,8 @@ namespace DatabaseRepository.Sql
 
         public IPaymentsRepository Payments => new SqlPaymentsRepository(
             new Tarea3Context(_dbOptions));
+
+        public IFamilyRepository Family => new SqlFamilyRepository(
+            new Tarea3Context(_dbOptions));
     }
 }

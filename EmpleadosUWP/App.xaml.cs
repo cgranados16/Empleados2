@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using DatabaseRepository;
 using DatabaseRepository.Sql;
+using Empleados.Models;
 using EmpleadosUWP.Services;
 using Microsoft.EntityFrameworkCore;
 using Windows.ApplicationModel.Activation;
@@ -17,6 +18,7 @@ namespace EmpleadosUWP
         /// </summary>
         public static IEmpleadosRepository Repository { get; private set; }
         public static ResourceLoader resourceLoader = new ResourceLoader();
+        public static Empleado SelectedEmployee;
 
         private Lazy<ActivationService> _activationService;
 

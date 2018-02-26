@@ -8,16 +8,17 @@
     xmlns:Custom="using:Telerik.UI.Xaml.Controls.Data"
     xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
     xmlns:Converters="using:EmpleadosUWP.ValuesConverter"
+    xmlns:views="using:EmpleadosUWP.Views"
     x:Class="EmpleadosUWP.Views.EmployeeDetailsPage"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    
+
     <Page.Resources>
         <Converters:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter"/>
         <Converters:StringFormatterConverter x:Key="StringFormatterConverter"/>
         <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Converters:BooleanInverterConverter x:Key="BooleanInverterConverter"/>
-        
+
     </Page.Resources>
 
 
@@ -55,7 +56,7 @@
 
         <Pivot Grid.Row="1">
             <PivotItem x:Uid="EmployeeDetails_PivotItem1">
-                <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+                <Grid Background="{ThemeResource SystemControlBackgroundChromeWhiteBrush}">
                     <RelativePanel  DataContext="{x:Bind ViewModel.Employee, Mode=OneWay}">
                         <StackPanel x:Name="Employee" Margin="20">
                             <my:RadNumericBox x:Name="CedulaNumericBox"
@@ -81,21 +82,35 @@
             <PivotItem
                 x:Uid="EmployeeDetails_PivotItem2"
                 Visibility="{x:Bind ViewModel.IsNewEmployee, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay, ConverterParameter=true}">
-                <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-                    <tg:RadDataGrid
-                ColumnDataOperationsMode="Flyout"
-                x:Name="grid"
-                ItemsSource="{x:Bind Path=ViewModel.Payments, Mode=OneWay}"
-                AutoGenerateColumns="False">
-                        <tg:RadDataGrid.Columns>
-                            <tg:DataGridTextColumn PropertyName="Monto" Header="Monto" SizeMode="Auto"/>
-                            <tg:DataGridTextColumn PropertyName="Fecha" Header="Fecha" SizeMode="Auto"/>
-                        </tg:RadDataGrid.Columns>
-                    </tg:RadDataGrid>
+                <Grid Background="{ThemeResource SystemControlBackgroundChromeWhiteBrush}">
+                    <Grid Margin="0,0,861,0" >
+                        <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="20,20,0,0">
+                            <TextBlock Text="Pagos Realizados" Style="{StaticResource PageTitleStyle}"/>
+                    </StackPanel>
+                    <tg:RadDataGrid Grid.Row="1" Margin="20"
+                        ColumnDataOperationsMode="Flyout"
+                        x:Name="grid"
+                        ItemsSource="{x:Bind Path=ViewModel.Payments, Mode=OneWay}"
+                        AutoGenerateColumns="False">
+                            <tg:RadDataGrid.Columns>
+                                <tg:DataGridTextColumn PropertyName="Monto" Header="Monto"/>
+                                <tg:DataGridTextColumn PropertyName="Fecha" Header="Fecha de Pago"/>
+                            </tg:RadDataGrid.Columns>
+                        </tg:RadDataGrid>
+                    <Button Grid.Row="2" Margin="20,0,20,20" HorizontalAlignment="Stretch" Height="42" Content="Añadir Pago"></Button>
+                    </Grid>
                 </Grid>
             </PivotItem>
             <PivotItem x:Uid="EmployeeDetails_PivotItem3">
-                
+                <Frame>
+                    <views:FamiliaresPage/>
+                </Frame>
             </PivotItem>
             <PivotItem x:Uid="EmployeeDetails_PivotItem4">
 
