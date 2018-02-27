@@ -15,5 +15,10 @@ namespace DatabaseRepository
         /// Adds a new familymember.
         /// </summary>
         Task<Familiares> UpsertAsync(Familiares familyMember);
+
+        /// <summary>
+        /// Deletes a Family Member.
+        /// </summary>
+        Task DeleteAsync(int IdEmpleado, int IdFamiliar);
     }
 }

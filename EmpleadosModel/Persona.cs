@@ -24,10 +24,10 @@ namespace Empleados.Models
         public string EstadoCivil { get; set; }
         public string Direccion { get; set; }
 
-        public Empleado Empleado { get; set; }
-        public ICollection<Correos> Correos { get; set; }
-        public ICollection<Familiares> Familiares { get; set; }
-        public ICollection<Telefonos> Telefonos { get; set; }
+        public virtual Empleado Empleado { get; set; }
+        public virtual ICollection<Correos> Correos { get; set; }
+        public virtual ICollection<Familiares> Familiares { get; set; }
+        public virtual ICollection<Telefonos> Telefonos { get; set; }
        
     }
 }

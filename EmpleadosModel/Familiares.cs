@@ -16,7 +16,7 @@ namespace Empleados.Models
         public int IdFamiliar { get; set; }
         public string Relacion { get; set; }
 
-        public Empleado Empleado { get; set; }
-        public Persona Familiar { get; set; }
+        public virtual Empleado Empleado { get; set; }
+        public virtual Persona Familiar { get; set; }
     }
 }

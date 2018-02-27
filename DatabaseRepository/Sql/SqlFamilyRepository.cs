@@ -29,14 +29,18 @@ namespace DatabaseRepository.Sql
 
         public async Task<Familiares> UpsertAsync(Familiares familyMember)
         {
+            Debug.Print(familyMember.Empleado.IdEmpleado.ToString());
             
             var current = await _db.Familiares.FindAsync(familyMember.Empleado.IdEmpleado, familyMember.Familiar.IdPersona);
             if (current == null)
             {
                 Debug.Print("Insert");
-                var familyMemberExists = await _db.Persona.FirstOrDefaultAsync(x => x.IdPersona == familyMember.Familiar.IdPersona);
-                if (familyMemberExists == null) _db.Persona.Add(familyMember.Familiar);
-                _db.Familiares.Add(familyMember);
+                Familiares newFamiliar = new Familiares();
+                newFamiliar.IdEmpleado = familyMember.Empleado.IdEmpleado;
+                newFamiliar.IdFamiliar = familyMember.Familiar.IdPersona;
+                newFamiliar.Familiar = familyMember.Familiar;
+                newFamiliar.Relacion = familyMember.Relacion;
+                _db.Familiares.Add(newFamiliar);
 
             }
             else
@@ -46,6 +50,16 @@ namespace DatabaseRepository.Sql
             }
             await _db.SaveChangesAsync();
             return familyMember;
+        }
+
+        public async Task DeleteAsync(int IdEmpleado, int IdFamiliar)
+        {
+            var current = await _db.Familiares.FindAsync(IdEmpleado, IdFamiliar);
+            if (null != current)
+            {
+                _db.Familiares.Remove(current);
+                await _db.SaveChangesAsync();
+            }
         }
     }
 }

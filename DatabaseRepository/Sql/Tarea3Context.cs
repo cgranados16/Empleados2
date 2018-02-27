@@ -19,8 +19,6 @@ namespace DatabaseRepository.Sql
         public DbSet<Persona> Persona { get; set; }
         public DbSet<Telefonos> Telefonos { get; set; }
 
-        //public DbSet<View_Empleado> View_Empleado { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Correos>(entity =>
@@ -61,7 +59,11 @@ namespace DatabaseRepository.Sql
 
             modelBuilder.Entity<Familiares>(entity =>
             {
-                entity.HasKey(e => new { e.IdEmpleado, e.IdFamiliar});
+                entity.HasKey(e => new { e.IdEmpleado, e.IdFamiliar  });
+
+                entity.Property(e => e.Relacion)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Empleado)
                     .WithMany(p => p.Familiares)
@@ -171,6 +173,5 @@ namespace DatabaseRepository.Sql
                     .HasConstraintName("FK__Telefonos__IdPer__6383C8BA");
             });
         }
-
     }
 }
