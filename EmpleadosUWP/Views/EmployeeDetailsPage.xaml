@@ -42,6 +42,12 @@
                             <TextBox x:Name="SecondLastName" Header= "Segundo Apellido" Text="{x:Bind ViewModel.Employee.Apellido2, Mode=TwoWay}" Margin="0,24,0,0" MaxLength="320" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"/>
                             <DatePicker x:Name="BirthDate" Header="Fecha de Nacimiento" Date="{Binding FechaNacimiento, Converter={StaticResource DateTimeToDateTimeOffsetConverter}, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0,24,0,0"></DatePicker>
                             <ComboBox x:Name="Gender" PlaceholderText="Género" ItemsSource="{Binding Generos}" SelectedItem="{Binding Genero, Mode=TwoWay}" Margin="0,24,0,0"  Width="100"></ComboBox>
+                            <TextBox AcceptsReturn="True" TextWrapping="Wrap"
+                                 Margin="0,24,0,0" HorizontalAlignment="Left"
+                                 MaxHeight="172" Width="300" Header="Dirección"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 Text="{Binding Direccion, Mode=TwoWay}"
+                                 AutomationProperties.IsRequiredForForm="True"/>    
                         </StackPanel>
                         <StackPanel x:Name="Associate" Margin="20" RelativePanel.RightOf="Employee">
                             <TextBox x:Name="Nationality" Header="Nacionalidad" Text="{x:Bind ViewModel.Employee.Nacionalidad, Mode=TwoWay}" Margin="0,24,0,0" MaxLength="320" Width="400" HorizontalAlignment="Left" InputScope="PersonalFullName"/>

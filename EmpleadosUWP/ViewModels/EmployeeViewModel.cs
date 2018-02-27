@@ -197,6 +197,19 @@ namespace EmpleadosUWP.ViewModels
             }
         }
 
+        public string Direccion
+        {
+            get => Persona.Direccion;
+            set
+            {
+                if (value != Persona.Direccion)
+                {
+                    Persona.Direccion = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public string NombreCompleto => Model.Persona.Nombre + " " + Model.Persona.Apellido1 + " " + Model.Persona.Apellido2;
         public string FechaContratacionString => Model.FechaContratacion.Value.ToShortDateString();
     }
