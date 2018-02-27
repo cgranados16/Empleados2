@@ -35,12 +35,19 @@ namespace DatabaseRepository.Sql
             if (current == null)
             {
                 Debug.Print("Insert");
+                var existing = await _db.Persona.FirstOrDefaultAsync(x => x.IdPersona == familyMember.Familiar.IdPersona);
                 Familiares newFamiliar = new Familiares();
                 newFamiliar.IdEmpleado = familyMember.Empleado.IdEmpleado;
                 newFamiliar.IdFamiliar = familyMember.Familiar.IdPersona;
-                newFamiliar.Familiar = familyMember.Familiar;
+                if (existing != null){
+                    newFamiliar.Familiar = existing;
+                }
+                else{
+                    newFamiliar.Familiar = familyMember.Familiar;
+                }
                 newFamiliar.Relacion = familyMember.Relacion;
                 _db.Familiares.Add(newFamiliar);
+                return newFamiliar;
 
             }
             else
