@@ -13,7 +13,7 @@ namespace EmpleadosUWP.ValuesConverter
                 DateTime date = (DateTime)value;
                 return new DateTimeOffset(date);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return DateTimeOffset.Now;
             }
@@ -26,7 +26,7 @@ namespace EmpleadosUWP.ValuesConverter
                 DateTimeOffset dto = (DateTimeOffset)value;
                 return dto.DateTime;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return DateTime.Now;
             }

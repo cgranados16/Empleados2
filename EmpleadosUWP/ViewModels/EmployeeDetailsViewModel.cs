@@ -14,117 +14,55 @@ namespace EmpleadosUWP.ViewModels
     public class EmployeeDetailsViewModel : BindableBase
     {
         /// <summary>
-        /// Creates a CustomerDetailPageViewModel that wraps the specified customer.
+        /// Creates a EmployeeDetailsViewModel that wraps the specified employee.
         /// </summary>
-        public EmployeeDetailsViewModel(EmployeeViewModel empleado)
-        {
-            _employee = empleado;
-            Task.Run(LoadPagosRealizados);
+        public EmployeeDetailsViewModel(EmployeeViewModel employee){
+            _employee = employee;
+            Task.Run(LoadPayments);
         }
 
         private ObservableCollection<PagosRealizados> _payments = new ObservableCollection<PagosRealizados>();
         /// <summary>
         /// The collection of the customer's orders.
         /// </summary>
-        public ObservableCollection<PagosRealizados> Payments
-        {
+        public ObservableCollection<PagosRealizados> Payments{
             get => _payments;
             set => SetProperty(ref _payments, value);
-        }
-
-        private bool _isLoading;
-        /// <summary>
-        /// Indicates whether to show the loading icon. 
-        /// </summary>
-        public bool IsLoading
-        {
-            get => _isLoading;
-            set => SetProperty(ref _isLoading, value);
         }
 
         private bool _isNewEmployee;
         /// <summary>
         /// Indicates whether this is a new customer.
         /// </summary>
-        public bool IsNewEmployee
-        {
+        public bool IsNewEmployee{
             get => _isNewEmployee;
             set => SetProperty(ref _isNewEmployee, value);
         }
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether the user has changed the order. 
-        /// </summary>
-        bool _hasChanges = false;
-        public bool HasChanges
-        {
-            get => _hasChanges;
-            set
-            {
-                if (value != _hasChanges)
-                {
-                    // Only record changes after the order has loaded. 
-                    if (IsLoaded)
-                    {
-                        _hasChanges = value;
-                        OnPropertyChanged(nameof(HasChanges));
-                    }
-                }
-            }
-        }
-
-        public bool IsLoaded => _employee != null && (IsNewEmployee || _employee.Persona != null);
-
-        public bool IsNotLoaded => !IsLoaded;
 
         private EmployeeViewModel _employee;
         /// <summary>
         /// Gets and sets the current customer values.
         /// </summary>
-        public EmployeeViewModel Employee
-        {
+        public EmployeeViewModel Employee{
             get => _employee;
-
-            set
-            {
-                SetProperty(ref _employee, value);
-                HasChanges = true;
-            }
+            set => SetProperty(ref _employee, value);
         }
 
-
-
-        private string _errorText = null;
         /// <summary>
-        /// Gets and sets the relevant error text.
+        /// Load Payments for the selected Employee into the Payments Collection.
         /// </summary>
-        public string ErrorText
-        {
-            get => _errorText;
-            set => SetProperty(ref _errorText, value);
-        }
-
-
-        public async Task LoadPagosRealizados()
-        {
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() => IsLoading = true);
+        public async Task LoadPayments(){
             var payments = await App.Repository.Payments.GetEmployeePaymentsAsync(_employee.Model.IdEmpleado);
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
-            {
+            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>{
                 Payments.Clear();
-                foreach (var p in payments)
-                {
+                foreach (var p in payments){
                     Payments.Add(p);
                 }
-                IsLoading = false;
             });
-
         }
 
-
-
         /// <summary>
-        /// Saves the current order to the database. 
+        /// Saves the current employee to the database. 
         /// </summary>
         public async Task SaveEmployee()
         {
@@ -142,40 +80,34 @@ namespace EmpleadosUWP.ViewModels
             ShowSaveDialogMessage(result != null);
         }
 
+        /// <summary>
+        /// Shows a dialog whether was successfully saved or not.
+        /// </summary>
+        /// <param name="success">Saved successfully</param>
         public async void ShowSaveDialogMessage(bool success)
         {
-
-            if (success)
-            {
-                var dialog = new ContentDialog()
-                {
+            if (success){
+                var dialog = new ContentDialog(){
                     Title = App.resourceLoader.GetString("SuccessSaveDialogTitle"),
                     Content = App.resourceLoader.GetString("SuccessSaveDialogContent"),
                     PrimaryButtonText = "OK"
                 };
-
                 await dialog.ShowAsync();
-            }
-            else
-            {
+            }else{
                 await DispatcherHelper.ExecuteOnUIThreadAsync(() => new EmployeeSavingException(
                     "No se pudo guardar. Hubo un problema" +
                     "con la conexión. Intente de nuevo."));
             }
         }
 
-
         /// <summary>
-        /// Adds a payment to the user. 
+        /// Adds a payment to the selected employee. 
         /// </summary>
-        public async Task AddPayment(double monto){
+        /// <param name="amount">Amount of money of the payment</param>
+        public async Task AddPayment(double amount){
             PagosRealizados result;
-            try
-            {
-                PagosRealizados payment = new PagosRealizados();
-                payment.IdEmpleado = _employee.Model.IdEmpleado;
-                payment.Monto = (decimal)monto;
-                payment.Fecha = DateTime.Now;
+            try{
+                PagosRealizados payment = new PagosRealizados(_employee.Model.IdEmpleado, (decimal)amount, DateTime.Now);
                 result = await App.Repository.Payments.UpsertAsync(payment);
             }catch (Exception ex){
                 throw new EmployeeSavingException("No se pudo guardar. Hubo un problema" +
@@ -183,9 +115,7 @@ namespace EmpleadosUWP.ViewModels
             }
             ShowSaveDialogMessage(result != null);
             Payments.Add(result);
-        }
-
-        
+        }        
 
         public class EmployeeSavingException : Exception
         {

@@ -1,10 +1,6 @@
 ﻿using Empleados.Models;
 using EmpleadosUWP.Models;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using Telerik.Core;
 
 namespace EmpleadosUWP.ViewModels
 {
@@ -21,7 +17,7 @@ namespace EmpleadosUWP.ViewModels
 
         internal Familiares Model { get; set; }
 
-        public EmployeeModel Empleado { get; set; }
+        public EmpleadoViewModel Empleado { get; set; }
 
         public PersonaViewModel Familiar { get; set; }
        
@@ -76,7 +72,7 @@ namespace EmpleadosUWP.ViewModels
             {
                 Model.Empleado = new Empleado();
             }
-            Empleado = new EmployeeModel(Model.Empleado);
+            Empleado = new EmpleadoViewModel(Model.Empleado);
         }
 
         private bool _isNewEmployee;

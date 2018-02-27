@@ -47,8 +47,7 @@ namespace DatabaseRepository.Sql
                 }
                 newFamiliar.Relacion = familyMember.Relacion;
                 _db.Familiares.Add(newFamiliar);
-                return newFamiliar;
-
+                familyMember = newFamiliar;
             }
             else
             {

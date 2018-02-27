@@ -2,17 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Empleados.Models;
 using EmpleadosUWP.Helpers;
-using EmpleadosUWP.Models;
-using EmpleadosUWP.Services;
-using EmpleadosUWP.Views;
 using Microsoft.Toolkit.Uwp.UI.Controls;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace EmpleadosUWP.ViewModels
@@ -48,7 +42,7 @@ namespace EmpleadosUWP.ViewModels
         {
             try
             {
-                _selected.Model.Familiar = _selected.Familiar.Model;                
+                _selected.Model.Familiar = _selected.Familiar.Model;
                 if (_selected.Empleado != null && _selected.Model.Familiar != null)
                 {
                     var result = await App.Repository.Family.UpsertAsync(_selected.Model);
@@ -66,6 +60,9 @@ namespace EmpleadosUWP.ViewModels
             }
         }
 
+        /// <summary>
+        /// Shows the form to the add a new family member.
+        /// </summary>
         private void AddFamilyMember()
         {
             var newFamilyMember = new FamiliarViewModel(new Familiares(App.SelectedEmployee.IdEmpleado));
@@ -73,17 +70,16 @@ namespace EmpleadosUWP.ViewModels
             Selected = newFamilyMember;
         }
 
+        /// <summary>
+        /// Remove the selected family member from the database.
+        /// </summary>
         private async Task RemoveFamilyMember()
         {
-            try
-            {
+            try {
                 _selected.Model.Familiar = _selected.Familiar.Model;
-                if (_selected.Empleado != null)
-                {
-
+                if (_selected.Empleado != null) {
                     var result = await ShowRemoveDialog();
-                    switch (result)
-                    {
+                    switch (result) {
                         case ContentDialogResult.Primary:
                             await App.Repository.Family.DeleteAsync(_selected.IdEmpleado, _selected.Model.Familiar.IdPersona);
                             if (Family.Contains(_selected)) Family.Remove(_selected);
@@ -92,11 +88,8 @@ namespace EmpleadosUWP.ViewModels
                             break;
                     }
                 }
-            }
-            catch (Exception)
-            {
-                var dialog = new ContentDialog()
-                {
+            } catch (Exception) {
+                var dialog = new ContentDialog() {
                     Title = "No se pudo eliminar.",
                     Content = $"Ocurrió un error al eliminar.",
                     PrimaryButtonText = "OK"
@@ -107,43 +100,39 @@ namespace EmpleadosUWP.ViewModels
 
         private async Task<ContentDialogResult> ShowRemoveDialog()
         {
-            ContentDialog dialog = new ContentDialog
-            {
+            ContentDialog dialog = new ContentDialog {
                 Title = "¿Realmente desea eliminar este familiar?",
                 Content = $"¿Eliminar a ¨{_selected.Model.Familiar.Nombre}¨ de la familia?",
                 CloseButtonText = "Cancelar",
                 PrimaryButtonText = "Eliminar"
             };
-
-            //ContentDialogResult result = await dialog.ShowAsync();
             return await dialog.ShowAsync();
         }
 
+        /// <summary>
+        /// Loads the family members of the selected employee Async.
+        /// </summary>
         public async Task LoadDataAsync(MasterDetailsViewState viewState)
         {
             Family.Clear();
-
             var data = await App.Repository.Family.GetEmployeeFamilyAsync(App.SelectedEmployee.IdEmpleado);
-
-            foreach (var item in data)
-            {
+            foreach (var item in data){
                 Family.Add(new FamiliarViewModel(item));
             }
-
-            if (viewState == MasterDetailsViewState.Both)
-            {
+            if (viewState == MasterDetailsViewState.Both){
                 Selected = Family.FirstOrDefault();
             }
         }
 
+        /// <summary>
+        /// Called when an item in the collection has changed so it can update the ViewModel
+        /// </summary>
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            //This will get called when the collection is changed
             if (e.Action == NotifyCollectionChangedAction.Remove)
             {
                 foreach (FamiliarViewModel item in e.OldItems)
                 {
-                    //Removed items
                     item.PropertyChanged -= EntityViewModelPropertyChanged;
                 }
             }
@@ -151,36 +140,25 @@ namespace EmpleadosUWP.ViewModels
             {
                 foreach (FamiliarViewModel item in e.NewItems)
                 {
-                    //Added items
                     item.PropertyChanged += EntityViewModelPropertyChanged;
                 }
             }
 
-            void EntityViewModelPropertyChanged(object sender2, PropertyChangedEventArgs e2)
-            {
-                
-                Debug.Print("Modificado");
+            void EntityViewModelPropertyChanged(object sender2, PropertyChangedEventArgs e2){
                 NotifyCollectionChangedEventArgs args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-                
             }
+
         }
 
         public class FamiliarSavingException : Exception
         {
 
-            public FamiliarSavingException() : base("Error guardando el familiar.")
-            {
-            }
+            public FamiliarSavingException() : base("Error guardando el familiar."){}
 
-            public FamiliarSavingException(string message) : base(message)
-            {
-            }
+            public FamiliarSavingException(string message) : base(message){}
 
             public FamiliarSavingException(string message,
-                Exception innerException) : base(message, innerException)
-            {
-
-            }
+                Exception innerException) : base(message, innerException){}
         }
     }
 }

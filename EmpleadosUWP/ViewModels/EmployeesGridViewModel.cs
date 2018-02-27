@@ -64,6 +64,10 @@ namespace EmpleadosUWP.ViewModels
             set => SetProperty(ref _isLoading, value);
         }
 
+        /// <summary>
+        /// Gets the list of employees Async.
+        /// </summary>
+        /// <returns></returns>
         public async Task GetEmployeeListAsync()
         {
             await DispatcherHelper.ExecuteOnUIThreadAsync(() => IsLoading = true);

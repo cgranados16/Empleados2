@@ -1,17 +1,12 @@
 ﻿using Empleados.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmpleadosUWP.Models
 {
-    public class EmployeeModel
+    public class EmpleadoViewModel
     {
 
-        public EmployeeModel(Empleado model)
-        {
+        public EmpleadoViewModel(Empleado model){
             Model = model ?? new Empleado();
         }
 

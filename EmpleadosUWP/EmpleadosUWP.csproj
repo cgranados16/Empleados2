@@ -118,12 +118,10 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Helpers\Observable.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
-    <Compile Include="Models\EmployeeModel.cs" />
-    <Compile Include="Models\SampleOrder.cs" />
+    <Compile Include="Models\EmpleadoViewModel.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Services\SampleDataService.cs" />
     <Compile Include="ValuesConverter\BooleanInverterConverter.cs" />
     <Compile Include="ValuesConverter\BooleanToVisibilityConverter.cs" />
     <Compile Include="ValuesConverter\DateTimeToDateTimeOffsetConverter.cs" />
@@ -139,8 +137,8 @@
     <Compile Include="Navigation\ShellNavigationItem.cs" />
     <Compile Include="Navigation\ShellViewModel.cs" />
     <Compile Include="ViewModels\FamiliaresViewModel.cs" />
-    <Compile Include="ViewModels\FamiliarViewModel.cs" />
-    <Compile Include="ViewModels\PersonaViewModel.cs" />
+    <Compile Include="Models\FamiliarViewModel.cs" />
+    <Compile Include="Models\PersonaViewModel.cs" />
     <Compile Include="Views\EmployeeDetailsPage.xaml.cs">
       <DependentUpon>EmployeeDetailsPage.xaml</DependentUpon>
     </Compile>

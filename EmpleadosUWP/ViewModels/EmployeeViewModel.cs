@@ -31,7 +31,6 @@ namespace EmpleadosUWP.ViewModels
         /// </summary>
         internal Empleado Model { get; set; }
 
-
         /// <summary>
         /// Gets or sets whether the underlying model has been modified. 
         /// This is used when sync'ing with the server to reduce load
