@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Empleados.Models;
 using EmpleadosUWP.ViewModels;
 
@@ -114,6 +115,22 @@ namespace EmpleadosUWP.Views
             }
         }
 
+        private async void AddPayment_Button(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var addPaymentDialog = new AddPaymentDialog();
+            await addPaymentDialog.ShowAsync();
+            AddPaymentDialogResult result = addPaymentDialog.Result;
+
+            switch (result)
+            {
+                case AddPaymentDialogResult.Accept:
+                    await ViewModel.AddPayment(addPaymentDialog.Monto);
+                    break;
+                case AddPaymentDialogResult.Cancel:                    
+                    break;
+            }
+        }
+
         /// <summary>
         /// Fired when a property value changes. 
         /// </summary>
@@ -125,6 +142,6 @@ namespace EmpleadosUWP.Views
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }    
+        }
     }
 }

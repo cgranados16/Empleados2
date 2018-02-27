@@ -140,7 +140,6 @@ namespace EmpleadosUWP.ViewModels
                     "con la conexión. Intente de nuevo.", ex);
             }
             ShowSaveDialogMessage(result != null);
-
         }
 
         public async void ShowSaveDialogMessage(bool success)
@@ -164,6 +163,29 @@ namespace EmpleadosUWP.ViewModels
                     "con la conexión. Intente de nuevo."));
             }
         }
+
+
+        /// <summary>
+        /// Adds a payment to the user. 
+        /// </summary>
+        public async Task AddPayment(double monto){
+            PagosRealizados result;
+            try
+            {
+                PagosRealizados payment = new PagosRealizados();
+                payment.IdEmpleado = _employee.Model.IdEmpleado;
+                payment.Monto = (decimal)monto;
+                payment.Fecha = DateTime.Now;
+                result = await App.Repository.Payments.UpsertAsync(payment);
+            }catch (Exception ex){
+                throw new EmployeeSavingException("No se pudo guardar. Hubo un problema" +
+                    "con la conexión. Intente de nuevo.", ex);
+            }
+            ShowSaveDialogMessage(result != null);
+            Payments.Add(result);
+        }
+
+        
 
         public class EmployeeSavingException : Exception
         {

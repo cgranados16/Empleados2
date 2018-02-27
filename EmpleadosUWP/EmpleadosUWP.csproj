@@ -156,6 +156,9 @@
     <Compile Include="Views\FamiliaresPage.xaml.cs">
       <DependentUpon>FamiliaresPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddPaymentDialog.xaml.cs">
+      <DependentUpon>AddPaymentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SaveChangesDialog.xaml.cs">
       <DependentUpon>SaveChangesDialog.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FamiliaresPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AddPaymentDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

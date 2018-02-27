@@ -44,11 +44,6 @@ namespace DatabaseRepository.Sql
             {
                 _db.PagosRealizados.Add(payment);
             }
-            else
-            {
-                
-                _db.Entry(current).CurrentValues.SetValues(payment);
-            }
             await _db.SaveChangesAsync();
             return payment;
         }

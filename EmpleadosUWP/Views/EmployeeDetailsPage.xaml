@@ -99,11 +99,11 @@
                         ItemsSource="{x:Bind Path=ViewModel.Payments, Mode=OneWay}"
                         AutoGenerateColumns="False">
                             <tg:RadDataGrid.Columns>
-                                <tg:DataGridTextColumn PropertyName="Monto" Header="Monto"/>
+                                <tg:DataGridTextColumn PropertyName="Monto" Header="Monto" />
                                 <tg:DataGridTextColumn PropertyName="Fecha" Header="Fecha de Pago"/>
                             </tg:RadDataGrid.Columns>
                         </tg:RadDataGrid>
-                    <Button Grid.Row="2" Margin="20,0,20,20" HorizontalAlignment="Stretch" Height="42" Content="Añadir Pago"></Button>
+                    <Button Grid.Row="2" Margin="20,0,20,20" HorizontalAlignment="Stretch" Height="42" Content="Añadir Pago" Click="AddPayment_Button" ></Button>
                     </Grid>
                 </Grid>
             </PivotItem>
